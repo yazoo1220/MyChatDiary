@@ -4,7 +4,7 @@ import os
 
 from datetime import datetime
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.llms import ChatOpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.memory import VectorStoreRetrieverMemory
 from langchain.chains import ConversationChain
 from langchain.prompts import PromptTemplate
