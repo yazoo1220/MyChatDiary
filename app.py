@@ -31,7 +31,7 @@ def get_chat_history(inputs) -> str:
 
 _DEFAULT_TEMPLATE = """The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context.
 AI is curious about Human help reflect the day. If anything relevant in the past is helpful to show empathy or advise, then use.
-
+the conversation needs to be in Japanese.
 Relevant pieces of previous conversation:
 {history}
 
