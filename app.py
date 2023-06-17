@@ -44,27 +44,27 @@ PROMPT = PromptTemplate(
     input_variables=["history", "input"], template=_DEFAULT_TEMPLATE
 )
 
+if is_gpt4:
+    model = "gpt-4"
+else:
+    model = "gpt-3.5-turbo"
+    
+llm = OpenAI(temperature=0.9, model_name=model, streaming=True, verbose=True)
+embeddings = OpenAIEmbeddings()
+client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=True, api_key=os.environ['QDRANT_API_KEY'])
+db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
+retriever = db.as_retriever(search_kwargs=dict(k=1))
+memory = VectorStoreRetrieverMemory(retriever=retriever)
 
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
-    if is_gpt4:
-        model = "gpt-4"
-    else:
-        model = "gpt-3.5-turbo"
-    llm = OpenAI(temperature=0.9, model_name=model, streaming=True, verbose=True)
-    embeddings = OpenAIEmbeddings()
-    client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=True, api_key=os.environ['QDRANT_API_KEY'])
-    db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
-    retriever = db.as_retriever(search_kwargs=dict(k=1))
-    memory = VectorStoreRetrieverMemory(retriever=retriever)
     chain = ConversationChain(
         llm=llm,
         prompt=PROMPT,
         memory=memory,
         verbose=True
     )
-    memory.save_context({"input": user_input}, {"output": result})
     return chain
     
 def get_text():
@@ -80,6 +80,7 @@ if chat_button:
         chat_history = []
         chain = load_chain()
         result = chain.predict(input=user_input)
+        memory.save_context({"input": user_input}, {"output": result})
         st.session_state.past.append(user_input)
         st.session_state.generated.append(result)
 
