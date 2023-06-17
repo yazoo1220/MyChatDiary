@@ -79,6 +79,7 @@ if chat_button:
         chat_history = []
         chain = load_chain()
         result = chain. predict(input=user_input)
+        st.write(result)
         st.session_state.past.append(user_input)
         st.session_state.generated.append(result['answer'])
 
