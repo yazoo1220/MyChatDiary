@@ -64,6 +64,7 @@ def load_chain():
         memory=memory,
         verbose=True
     )
+    memory.save_context({"input": user_input}, {"output": result})
     return chain
     
 def get_text():
@@ -79,7 +80,6 @@ if chat_button:
         chat_history = []
         chain = load_chain()
         result = chain.predict(input=user_input)
-        memory.save_context({"input": user_input}, {"output": result})
         st.session_state.past.append(user_input)
         st.session_state.generated.append(result)
 
