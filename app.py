@@ -56,7 +56,7 @@ def load_chain():
     embeddings = OpenAIEmbeddings()
     client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=True, api_key=os.environ['QDRANT_API_KEY'])
     db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
-    retriever = vectorstore.as_retriever(search_kwargs=dict(k=1))
+    retriever = db.as_retriever(search_kwargs=dict(k=1))
     memory = VectorStoreRetrieverMemory(retriever=retriever)
     chain = ConversationChain(
         llm=llm,
