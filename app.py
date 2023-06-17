@@ -81,7 +81,7 @@ if chat_button:
         result = chain. predict(input=user_input)
         st.write(result)
         st.session_state.past.append(user_input)
-        st.session_state.generated.append(result['answer'])
+        st.session_state.generated.append(result)
 
 
 if st.session_state["generated"]:
