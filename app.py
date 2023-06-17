@@ -53,7 +53,7 @@ def load_chain():
         model = "gpt-3.5-turbo"
     llm = ChatOpenAI(temperature=0.9, model_name=model, streaming=True, verbose=True)
     embeddings = OpenAIEmbeddings()
-    client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL', prefer_grpc=True, api_key=os.environ['QDRANT_API_KEY'])
+    client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=True, api_key=os.environ['QDRANT_API_KEY'])
     db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
     retriever = vectorstore.as_retriever(search_kwargs=dict(k=1))
     memory = VectorStoreRetrieverMemory(retriever=retriever)
