@@ -78,8 +78,7 @@ if chat_button:
     with st.spinner('typing...'):
         chat_history = []
         chain = load_chain()
-        result = chain. predict(input=user_input)
-        st.write(result)
+        result = chain.predict(input=user_input)
         st.session_state.past.append(user_input)
         st.session_state.generated.append(result)
 
