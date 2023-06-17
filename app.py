@@ -8,6 +8,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.memory import VectorStoreRetrieverMemory
 from langchain.chains import ConversationChain
 from langchain.prompts import PromptTemplate
+from langchain.vectorstores import Qdrant
 import qdrant_client
 
 st.set_page_config(page_title="ChatDiary", page_icon="📖")
