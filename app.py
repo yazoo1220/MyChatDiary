@@ -43,7 +43,7 @@ Current conversation:
 Human: {input}
 AI:"""
 PROMPT = PromptTemplate(
-    input_variables=["history", "input", "now"], template=_DEFAULT_TEMPLATE
+    input_variables=["history", "input"], template=_DEFAULT_TEMPLATE
 )
 
 if is_gpt4:
