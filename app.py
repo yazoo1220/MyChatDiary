@@ -12,6 +12,7 @@ from langchain.chains import ConversationChain
 from langchain.prompts import PromptTemplate
 from langchain.vectorstores import Qdrant
 import qdrant_client
+from typing import List, Dict, Any
 
 st.set_page_config(page_title="ChatDiary", page_icon="📖")
 st.header("📖 ChatDiary")
