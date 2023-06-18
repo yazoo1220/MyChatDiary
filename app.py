@@ -55,8 +55,6 @@ client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=Tr
 db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
 retriever = db.as_retriever(search_kwargs=dict(k=1))
 memory = VectorStoreRetrieverMemory(retriever=retriever)
-memory_variables = memory.load_memory_variables({"input_key": "?"})
-st.write(memory_variables)
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
@@ -82,6 +80,8 @@ if chat_button:
         chain = load_chain()
         result = chain.predict(input=user_input)
         memory.save_context({"input": user_input}, {"output": result})
+        memory_variables = memory.load_memory_variables({"input_key": user_input})
+        st.write(memory_variables)
         st.session_state.past.append(user_input)
         st.session_state.generated.append(result)
 
