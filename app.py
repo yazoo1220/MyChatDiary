@@ -86,7 +86,7 @@ if chat_button:
     with st.spinner('typing...'):
         chat_history = []
         chain = load_chain()
-        memory_variables = memory.load_memory_variables({"input_key": user_input})
+        memory_variables = st.session_state["memory"].load_memory_variables({"input_key": user_input})
         st.write(memory_variables)
         result = chain.predict(input= str(now) + ": " + user_input)
         st.session_state["memory"].save_context({"input": user_input}, {"output": result})
