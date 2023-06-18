@@ -57,7 +57,7 @@ embeddings = OpenAIEmbeddings()
 client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=True, api_key=os.environ['QDRANT_API_KEY'])
 db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
 retriever = db.as_retriever(search_kwargs=dict(k=1))
-memory = ConversationEntityMemory(retriever=retriever)
+memory = ConversationEntityMemory(llm=llm)
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
