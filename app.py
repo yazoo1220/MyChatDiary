@@ -4,7 +4,7 @@ import os
 
 from datetime import datetime
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.memory import VectorStoreRetrieverMemory
 from langchain.chains import ConversationChain
 from langchain.prompts import PromptTemplate
@@ -51,7 +51,7 @@ if is_gpt4:
 else:
     model = "gpt-3.5-turbo"
     
-llm = OpenAI(temperature=0.9, model_name=model, streaming=True, verbose=True)
+llm = ChatOpenAI(temperature=0.9, model_name=model, streaming=True, verbose=True)
 embeddings = OpenAIEmbeddings()
 client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=True, api_key=os.environ['QDRANT_API_KEY'])
 db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
