@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
+from langchain.memory.prompt import ENTITY_MEMORY_CONVERSATION_TEMPLATE
 from langchain.memory import ConversationEntityMemory
 from langchain.memory import VectorStoreRetrieverMemory
 from langchain.chains import ConversationChain
@@ -44,7 +45,7 @@ Current conversation:
 Human: {input}
 AI:"""
 PROMPT = PromptTemplate(
-    input_variables=["history", "input"], template=_DEFAULT_TEMPLATE
+    input_variables=["history", "input"], template=ENTITY_MEMORY_CONVERSATION_TEMPLATE
 )
 
 if is_gpt4:
