@@ -64,7 +64,7 @@ def load_chain():
     """Logic for loading the chain you want to use should go here."""
     chain = ConversationChain(
         llm=llm,
-        prompt=PROMPT,
+        prompt=ENTITY_MEMORY_CONVERSATION_TEMPLATE,
         memory=memory,
         verbose=True
     )
