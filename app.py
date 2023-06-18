@@ -25,6 +25,9 @@ if "generated" not in st.session_state:
 if "past" not in st.session_state:
     st.session_state["past"] = []
 
+if "memory" not in st.session_state:
+    st.session_state["memory"] = []
+
 
 def get_chat_history(inputs) -> str:
     res = []
@@ -59,14 +62,14 @@ embeddings = OpenAIEmbeddings()
 client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=True, api_key=os.environ['QDRANT_API_KEY'])
 db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
 retriever = db.as_retriever(search_kwargs=dict(k=1))
-memory = ConversationEntityMemory(llm=llm)
+st.session_state["memory"] = ConversationEntityMemory(llm=llm)
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
     chain = ConversationChain(
         llm=llm,
         prompt=ENTITY_MEMORY_CONVERSATION_TEMPLATE,
-        memory=memory,
+        memory=st.session_state["memory"],
         verbose=True
     )
     return chain
