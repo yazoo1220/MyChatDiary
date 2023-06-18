@@ -83,7 +83,7 @@ if chat_button:
         chain = load_chain()
         memory_variables = memory.load_memory_variables({"input_key": user_input})
         st.write(memory_variables)
-        result = chain.predict(input=user_input)
+        result = chain.predict(input=user_input, now=now)
         memory.save_context({"input": user_input, "now": now}, {"output": result})
         
         st.session_state.past.append(user_input)
