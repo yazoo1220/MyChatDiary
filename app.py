@@ -31,7 +31,7 @@ def get_chat_history(inputs) -> str:
 
 now = datetime.now()
 
-_DEFAULT_TEMPLATE = f"""The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context.
+_DEFAULT_TEMPLATE = """The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context.
 AI wants to help reflect the day. If anything relevant in the past is helpful to show empathy, then use.
 the conversation needs to be in Japanese. Only return AI's part, don't act as Human.
 Also remember it's {now} now.
@@ -44,7 +44,7 @@ Current conversation:
 Human: {input}
 AI:"""
 PROMPT = PromptTemplate(
-    input_variables=["history", "input"], template=_DEFAULT_TEMPLATE
+    input_variables=["history", "input", "now"], template=_DEFAULT_TEMPLATE
 )
 
 if is_gpt4:
