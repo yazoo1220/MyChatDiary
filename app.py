@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
+from langchain.memory import ConversationEntityMemory
 from langchain.memory import VectorStoreRetrieverMemory
 from langchain.chains import ConversationChain
 from langchain.prompts import PromptTemplate
@@ -56,7 +57,7 @@ embeddings = OpenAIEmbeddings()
 client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=True, api_key=os.environ['QDRANT_API_KEY'])
 db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
 retriever = db.as_retriever(search_kwargs=dict(k=1))
-memory = VectorStoreRetrieverMemory(retriever=retriever)
+memory = ConversationEntityMemory(retriever=retriever)
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
