@@ -29,7 +29,7 @@ def get_chat_history(inputs) -> str:
         res.append(f"Human:{human}\nAI:{ai}")
     return "\n".join(res)
 
-now = datetime.datetime.now()
+now = datetime.now()
 
 _DEFAULT_TEMPLATE = """The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context.
 AI wants to help reflect the day. If anything relevant in the past is helpful to show empathy, then use.
