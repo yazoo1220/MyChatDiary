@@ -34,7 +34,6 @@ now = datetime.now()
 _DEFAULT_TEMPLATE = """The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context.
 AI wants to help reflect the day. If anything relevant in the past is helpful to show empathy, then use.
 the conversation needs to be in Japanese. Only return AI's part, don't act as Human.
-Also remember it's {now} now.
 Relevant pieces of previous conversation:
 {history}
 
@@ -83,7 +82,7 @@ if chat_button:
         chain = load_chain()
         memory_variables = memory.load_memory_variables({"input_key": user_input})
         st.write(memory_variables)
-        result = chain.predict(input=user_input, now=now)
+        result = chain.predict(input= now + ": " + user_input)
         memory.save_context({"input": user_input, "now": now}, {"output": result})
         
         st.session_state.past.append(user_input)
