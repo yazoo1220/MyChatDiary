@@ -55,7 +55,8 @@ client = qdrant_client.QdrantClient(url=os.environ['QDRANT_URL'], prefer_grpc=Tr
 db = Qdrant(client=client, collection_name="yasuhiro", embeddings=embeddings)
 retriever = db.as_retriever(search_kwargs=dict(k=1))
 memory = VectorStoreRetrieverMemory(retriever=retriever)
-
+memory_variables = memory.load_memory_variables({"input_key": "?"})
+st.write(memory_variables)
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
